@@ -434,6 +434,6 @@ class StyleDiscriminator(nn.Module):
 
 
 if __name__ == "__main__":
-    D = StyleGenerator()
-    G = StyleDiscriminator()
+    D = StyleDiscriminator()
+    G = StyleGenerator()
     print(D)
