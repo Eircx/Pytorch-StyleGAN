@@ -43,7 +43,7 @@ if __name__ == "__main__":
     
     writer = SummaryWriter(log_dir=opts.log_dir)
     writer.add_graph(G, torch.rand(1, 128))
-    # writer.add_graph(D, torch.randn(1, 3, 256, 256))
+    writer.add_graph(D, torch.randn(1, 3, 256, 256))
     # Multi-GPU support
     if torch.cuda.device_count() > 1:
         printInfo("Multiple GPU: %d GPUs are available!" % torch.cuda.device_count())

@@ -19,7 +19,7 @@ class TrainOptions():
         parser.add_argument("--exp-id", type=str, default="1", help="record the id of experiment")
         parser.add_argument("--lr", type=float, default=0.001)
         parser.add_argument("--epoches", type=int, default=300)
-        parser.add_argument("--batch-size", type=int, default=8)
+        parser.add_argument("--batch-size", type=int, default=16)
         parser.add_argument("--dataset", type=int, default=0, help="choose the dataset(0 : lfw, 1 : comic figures)")
         parser.add_argument("--cuda", default=0, type=int, help="choose which GPU to use in training")
         parser.add_argument("--resume", default=None, type=str, help='choose the pretrained model')

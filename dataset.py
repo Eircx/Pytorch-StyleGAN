@@ -6,7 +6,7 @@ import torchvision.transforms as transforms
 
 class Comic_Dataset(data.Dataset):
     def __init__(self):
-        self.imgs = glob(r"**/comic_faces/faces/*.jpg", recursive=True)[:256]
+        self.imgs = glob(r"**/comic_faces/faces/*.jpg", recursive=True)
         self.transforms = transforms.Compose([
             transforms.Resize(256, 256),
             transforms.ToTensor(),
