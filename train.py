@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # D_scheduler = optim.lr_scheduler.ExponentialLR(D_optimizer, gamma=0.9)
 
     #Training
-    TEST_SIZE = 4
+    TEST_SIZE = 16
     fix_z = torch.randn([TEST_SIZE, 128]).to(opts.device)
     softplus = nn.Softplus()
     Loss_D_list = [0.0]

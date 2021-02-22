@@ -36,7 +36,7 @@ class Blur2d(nn.Module):
             f = f[:,None] * f[None,:]
             f = f[None, None]
             if normalize:
-                f /= f.sum()
+                f = f / f.sum()
             if flip:
                 f = torch.flip(f, [2,3])
             self.f = f
@@ -65,7 +65,7 @@ class FC(nn.Module):
         he_std = gain * in_channels ** (-0.5)
 
         if bias:
-            self.bias = torch.nn.Parameter(torch.randn(out_channels))
+            self.bias = torch.nn.Parameter(torch.zeros(out_channels))
             self.b_lrmul = lrmul
         else:
             self.bias = None
@@ -83,7 +83,10 @@ class FC(nn.Module):
     def forward(self, x):
         # weight = self.weight.to(x.device)
         # bias = self.bias.to(x.device)
-        out = F.linear(x, self.weight * self.w_lrmul, self.bias * self.b_lrmul)
+        if self.bias is not None:
+            out = F.linear(x, self.weight * self.w_lrmul, self.bias * self.b_lrmul)
+        else:
+            out = F.linear(x, self.weight * self.w_lrmul)
         out = F.leaky_relu(out, 0.2, inplace=True)
         return out
             
@@ -120,7 +123,10 @@ class Conv2d(nn.Module):
             self.b_lrmul = None
 
     def forward(self, x):
-        return F.conv2d(x, self.weight * self.w_lrmul, self.bias * self.b_lrmul, padding=self.kernel_size // 2)
+        if self.bias is not None:
+            return F.conv2d(x, self.weight * self.w_lrmul, self.bias * self.b_lrmul, padding=self.kernel_size // 2)
+        else:
+            return F.conv2d(x, self.weight * self.w_lrmul, padding=self.kernel_size // 2)
 
 
 class PixelNorm(nn.Module):
